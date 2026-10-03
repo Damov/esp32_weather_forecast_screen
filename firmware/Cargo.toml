@@ -1,0 +1,43 @@
+[package]
+name = "weather-forecast-firmware"
+version = "0.1.0"
+edition = "2021"
+resolver = "2"
+rust-version = "1.82"
+license = "GPL-3.0-only"
+
+[[bin]]
+name = "weather-forecast-firmware"
+harness = false
+required-features = ["device"]
+
+[features]
+default = ["device"]
+device = []
+
+[profile.release]
+opt-level = "z"
+lto = "thin"
+codegen-units = 1
+
+[profile.dev]
+debug = true
+opt-level = "z"
+
+[dependencies]
+log = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", default-features = false, features = ["std"] }
+chrono-tz = { version = "0.10", default-features = false }
+embedded-graphics = "0.8"
+zeroize = { version = "1.8", features = ["alloc"] }
+
+[target.'cfg(target_os = "espidf")'.dependencies]
+esp-idf-svc = "0.53"
+embedded-hal = "1"
+mipidsi = "0.10"
+anyhow = "1"
+
+[build-dependencies]
+embuild = { version = "0.33.5", features = ["espidf"] }

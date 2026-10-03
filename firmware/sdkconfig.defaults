@@ -1,0 +1,19 @@
+# Extra stack space for Rust and standard-library threads.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+CONFIG_ESP_SYSTEM_EVENT_TASK_STACK_SIZE=4096
+CONFIG_FREERTOS_IDLE_TASK_STACKSIZE=4096
+CONFIG_PTHREAD_TASK_STACK_SIZE_DEFAULT=4096
+
+# Freenove FNK0103S / ESP32-WROOM-32E, preserving the backed-up layout.
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+# build.sh supplies the absolute CSV path through a generated SDK config.
+
+# Store native Wi-Fi credentials in unencrypted NVS.
+CONFIG_NVS_ENCRYPTION=n
+CONFIG_ESP_WIFI_ENABLE_WPA3_SAE=y
+CONFIG_LOG_DEFAULT_LEVEL_WARN=y
+
+# Verify HTTPS location searches against the ESP-IDF certificate bundle.
+CONFIG_MBEDTLS_CERTIFICATE_BUNDLE=y
+CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_FULL=y

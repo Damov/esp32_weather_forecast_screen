@@ -1,0 +1,4 @@
+# Embedded asset records must retain their exact bytes.
+*.bitmap binary
+*.glyphs binary
+*.kerning binary

@@ -1,0 +1,77 @@
+Weather Display UI Subset — bitmap font assets derived from Montserrat
+
+Original font family: Montserrat
+Original project: https://github.com/JulietaUla/Montserrat
+Published family page: https://fonts.google.com/specimen/Montserrat
+Copyright 2024 The Montserrat.Git Project Authors
+Font license: SIL Open Font License, Version 1.1 (see OFL.txt).
+Montserrat's original designer is Julieta Ulanovsky; the project's contributors
+and copyright holders are credited by the original repository and license.
+
+These modified/subsetted assets are named Weather Display UI Subset. They contain
+216 printable ASCII, Latin/symbol and Russian/Ukrainian Cyrillic glyphs for the
+UI at 12, 14 and 20 pixels. ASCII glyphs come from LVGL's Montserrat Medium
+bitmap fonts. All non-ASCII glyphs are rasterised directly from the pinned
+Montserrat Light TTF. Unsupported characters use the '?' glyph.
+No Font Awesome or weather icon glyphs are included.
+
+Modifications: retain the LVGL ASCII raster shapes, advances, offsets and
+kerning, remove unused glyphs, and convert metadata to little-endian binary
+records. Rasterise the non-ASCII glyphs using Pillow 9.0.1 and FreeType 2.11.1,
+quantise coverage to four bits and store kerning as sorted sparse pairs.
+The coverage includes accented Latin letters and symbols, all 66 Russian
+uppercase/lowercase letters including Ё/ё, and the eight additional Ukrainian
+letters Ґ/ґ, Є/є, І/і and Ї/ї. Text bands include Latin accents and Cyrillic
+descenders without clipping.
+The renderer aligns both weights to a common baseline and blends coverage into
+RGB565. The 20px subset serves headings, 14px serves body/control text and 12px
+serves secondary labels. Bitmap assets remain OFL-1.1, separately from the
+GPL-3.0-only firmware and conversion script.
+
+Sources (exact URLs and SHA-256 checksums are in sources.json):
+- LVGL fallback fonts, version 9.2.2, lvgl/lvgl commit
+  7f07a129e8d77f4984fff8e623fd5be18ff42e74:
+  https://github.com/lvgl/lvgl/tree/7f07a129e8d77f4984fff8e623fd5be18ff42e74/src/font
+  Retain LVGL's applicable copyright and MIT notice in LVGL-MIT.txt.
+- Montserrat Light TTF, JulietaUla/Montserrat commit
+  555facfb2a18c72c3c0380f0d9c0f060453a9058:
+  https://github.com/JulietaUla/Montserrat/blob/555facfb2a18c72c3c0380f0d9c0f060453a9058/fonts/ttf/Montserrat-Light.ttf
+  Its OFL notice has the same copyright and license as OFL.txt.
+- OFL notice from the Montserrat family published in google/fonts, commit
+  9710da1eacb3be272583c3224dcb70f9da6eadbb:
+  https://github.com/google/fonts/blob/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/montserrat/OFL.txt
+
+The selected OFL notice declares no Reserved Font Names. The subset name above
+also distinguishes this conversion from the original published font. Credits
+do not imply endorsement by Montserrat's authors, the source projects or LVGL.
+
+The OFL permits free use, embedding, modification and redistribution, including
+with commercial firmware, subject to its conditions. Do not sell the font on
+its own, and distribute the font assets under OFL-1.1 with their copyright and
+license notices. Include NOTICE.txt, OFL.txt and LVGL-MIT.txt with distributions
+of this firmware, including standalone binary releases. The OFL is not replaced
+by the firmware's GPL license. Retain the firmware's GPL notices and applicable
+source-distribution obligations separately.
+
+Regenerate from the project root:
+  python3 tools/generate_fonts.py
+Verify reproducibility without rewriting assets:
+  python3 tools/generate_fonts.py --check
+The converter requires Pillow 9.0.1 built with FreeType 2.11.1 (versions are
+checked against sources.json), fetches pinned source files only when absent in
+firmware/target/font-sources, and checks their SHA-256 hashes. Pillow is a
+development tool; its source and license are at
+https://github.com/python-pillow/Pillow/blob/9.0.1/LICENSE.
+Device builds and runtime use the checked-in assets and need no font downloads.
+
+The weather clock adds a 42px Montserrat Medium numeric subset, converted from
+the same pinned LVGL 9.2.2 sources. It includes digits, colon, hyphen, space and
+question mark and retains the same OFL-1.1 terms.
+
+Week and Hours add 19px, 22px and 31px Montserrat Medium subsets rasterized
+from Montserrat-Medium.ttf at the same pinned Montserrat commit above (exact URL
+and SHA-256 in sources.json). ASCII, localized characters (including all Russian and Ukrainian letters), the degree sign and
+arrow use this single weight. The same pinned Pillow/FreeType versions produce
+four-bit coverage, advances in sixteenths of a pixel and sparse kerning tables.
+Text bands use 23/26/38px heights and 19/21/31px baselines so accents and descenders
+remain visible. These assets retain the OFL-1.1 terms and attribution above.

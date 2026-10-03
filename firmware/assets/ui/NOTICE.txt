@@ -1,0 +1,5 @@
+Settings gear: Tabler Icons, https://github.com/tabler/tabler-icons
+Revision: 74929e50416e2b7c0abb8368cdc74bdcb2560ab6
+Copyright (c) 2020-2026 Paweł Kuna. MIT license: see MIT.txt.
+settings-32.alpha is a 32px alpha-mask derivative of settings.svg.
+Generated with CairoSVG 2.7.1, Cairo 1.16.0 and Pillow 9.0.1.

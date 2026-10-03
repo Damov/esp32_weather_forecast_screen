@@ -1,0 +1,48 @@
+[
+  {
+    "size": 12,
+    "kind": "medium",
+    "file": "medium-12.c",
+    "url": "https://raw.githubusercontent.com/lvgl/lvgl/7f07a129e8d77f4984fff8e623fd5be18ff42e74/src/font/lv_font_montserrat_12.c",
+    "sha256": "5be9c2a8878c694e8abd55643352023a7071e5bac474423337ed2e2eefcd8b7e"
+  },
+  {
+    "size": 14,
+    "kind": "medium",
+    "file": "medium-14.c",
+    "url": "https://raw.githubusercontent.com/lvgl/lvgl/7f07a129e8d77f4984fff8e623fd5be18ff42e74/src/font/lv_font_montserrat_14.c",
+    "sha256": "140f65aa4327f17d587bb51b63e3f731523e4d9a24e40a9219d21ca7c84f0f11"
+  },
+  {
+    "size": 20,
+    "kind": "medium",
+    "file": "medium-20.c",
+    "url": "https://raw.githubusercontent.com/lvgl/lvgl/7f07a129e8d77f4984fff8e623fd5be18ff42e74/src/font/lv_font_montserrat_20.c",
+    "sha256": "d8b67ea4c76ae2c71bf8203521de9f74fe17ac01fd6eb7fff4918057d5c59f34"
+  },
+  {
+    "kind": "extra",
+    "size": 0,
+    "file": "extra-light.ttf",
+    "url": "https://raw.githubusercontent.com/JulietaUla/Montserrat/555facfb2a18c72c3c0380f0d9c0f060453a9058/fonts/ttf/Montserrat-Light.ttf",
+    "sha256": "853de0dd715d6681f7038cf6cd53c1695b614657cbc57c8f542fe08d5b84e006",
+    "pillow_version": "9.0.1",
+    "freetype_version": "2.11.1"
+  },
+  {
+    "size": 42,
+    "kind": "medium",
+    "file": "medium-42.c",
+    "url": "https://raw.githubusercontent.com/lvgl/lvgl/7f07a129e8d77f4984fff8e623fd5be18ff42e74/src/font/lv_font_montserrat_42.c",
+    "sha256": "b4fe50b53c59078d46db3315afee59559e629ef6fbb52c6cc80010a0b834ea27"
+  },
+  {
+    "kind": "forecast",
+    "size": 0,
+    "file": "forecast-medium.ttf",
+    "url": "https://raw.githubusercontent.com/JulietaUla/Montserrat/555facfb2a18c72c3c0380f0d9c0f060453a9058/fonts/ttf/Montserrat-Medium.ttf",
+    "sha256": "dae47428bb041f9716604e0e07b5b0c8585b3bdd8183362f75c69fe7bb3cfaf4",
+    "pillow_version": "9.0.1",
+    "freetype_version": "2.11.1"
+  }
+]

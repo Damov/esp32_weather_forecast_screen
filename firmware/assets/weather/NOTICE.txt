@@ -1,0 +1,11 @@
+Weather symbols: Meteocons by Bas Milius.
+Source: https://github.com/basmilius/meteocons
+Distribution: @meteocons/svg-static 0.1.0 (flat style), pinned in sources.json.
+Copyright (c) 2020-present Bas Milius. License: MIT; see MIT.txt.
+
+The original SVG subset is retained in svg/. Bitmap derivatives rasterize the
+symbols at 32 and 72 pixels and convert their colors to RGB565 plus 8-bit alpha.
+Regenerate with tools/generate_weather_icons.py. No shape edits were made.
+Keep this notice and MIT.txt with source and binary firmware distributions.
+The symbol license is independent of the GPL-3.0-only firmware code.
+Credits do not imply endorsement.

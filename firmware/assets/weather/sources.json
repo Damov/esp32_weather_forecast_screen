@@ -1,0 +1,14 @@
+{
+  "author": "Bas Milius",
+  "project": "https://github.com/basmilius/meteocons",
+  "package": "@meteocons/svg-static",
+  "version": "0.1.0",
+  "url": "https://registry.npmjs.org/@meteocons/svg-static/-/svg-static-0.1.0.tgz",
+  "integrity": "sha512-dnuXOkt1W5q+XZbyj54dzjuBcKmsC0eLv51IVaW9kzzvzwnhwv9KgNXHKgpvmdN6cX2stMo+k95iMFbcyM4x5Q==",
+  "license": "MIT",
+  "style": "flat",
+  "conversion": "Static SVG rasterization at 32px and 72px; little-endian RGB565 plus 8-bit alpha per pixel",
+  "cairosvg": "2.7.1",
+  "pillow": "9.0.1",
+  "cairo": "1.16.0"
+}

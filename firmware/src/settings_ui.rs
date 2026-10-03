@@ -939,7 +939,13 @@ mod tests {
                 crate::weather::View::Hours,
             ] {
                 app.weather.view = view;
-                assert_eq!(ui::hit(&app, 288, 458), Some(Action::OpenSettings));
+                for (x, y) in [(288, 458), (260, 427), (312, 427), (260, 479), (312, 479)] {
+                    assert_eq!(ui::hit(&app, x, y), Some(Action::OpenSettings));
+                }
+                for (x, y) in [(259, 458), (313, 458), (288, 480), (160, 427)] {
+                    assert_eq!(ui::hit(&app, x, y), None);
+                }
+                assert_eq!(ui::hit(&app, 288, 426), Some(Action::CycleWeather));
                 assert_eq!(ui::hit(&app, 20, 458), None);
                 assert_eq!(ui::hit(&app, 160, 300), Some(Action::CycleWeather));
             }

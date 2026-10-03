@@ -111,15 +111,15 @@ pub fn controls(app: &App) -> Vec<Control> {
         }
         Page::Connected => {
             out.push(control(
-                264,
-                436,
-                44,
-                44,
+                260,
+                427,
+                53,
+                53,
                 "Settings",
                 Action::OpenSettings,
                 true,
             ));
-            out.push(control(0, 40, 320, 396, "", Action::CycleWeather, true));
+            out.push(control(0, 40, 320, 387, "", Action::CycleWeather, true));
         }
         Page::Networks => {
             for (row, n) in app.networks.iter().skip(app.offset).take(5).enumerate() {

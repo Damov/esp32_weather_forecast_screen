@@ -800,11 +800,11 @@ pub fn render<D: DrawTarget<Color = Rgb565>>(display: &mut D, app: &App) -> Resu
 }
 fn draw_settings_gear<D: DrawTarget<Color = Rgb565>>(display: &mut D) -> Result<(), D::Error> {
     // MIT Tabler Icons derivative; see assets/ui/NOTICE.txt and MIT.txt.
-    const ALPHA: &[u8] = include_bytes!("../assets/ui/settings-32.alpha");
-    let area = Rectangle::new(Point::new(272, 442), Size::new(32, 32))
+    const ALPHA: &[u8] = include_bytes!("../assets/ui/settings-38.alpha");
+    let area = Rectangle::new(Point::new(269, 439), Size::new(38, 38))
         .intersection(&display.bounding_box());
     let pixels = area.points().map(|p| {
-        let alpha = ALPHA[((p.y - 442) * 32 + p.x - 272) as usize];
+        let alpha = ALPHA[((p.y - 439) * 38 + p.x - 269) as usize];
         theme::blend(
             theme::background_at(p.y),
             theme::TEXT,

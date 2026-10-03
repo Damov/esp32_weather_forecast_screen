@@ -1,0 +1,18 @@
+# Rust build artifacts (Cargo.lock is intentionally tracked)
+**/target/
+**/target
+**/*.rs.bk
+*.pdb
+**/mutants.out*/
+
+# Local ESP-IDF SDK/tools and generated configuration
+**/.embuild/
+**/.embuild
+**/sdkconfig
+**/sdkconfig.old
+**/sdkconfig.*.old
+
+# Device-specific secrets and full flash backups must never enter Git.
+secrets/
+backups/
+**/*hmac*key*.bin

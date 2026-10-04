@@ -1,6 +1,6 @@
 // ============================================================================= //
 // File          : build.rs                                                      //
-// License       : GPL-3.0-only                                                  //
+// License       : MIT                                                           //
 // Created       : 2026-10-04                                                    //
 // Last modified : 2026-10-04                                                    //
 // Author        : Daniel Kharlamov                                              //

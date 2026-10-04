@@ -6,7 +6,7 @@ ESP32 weather forecast screen
 
 This declaration identifies third-party software, visual assets and data
 used by the project or its build tools. The project's firmware source code
-is licensed under GPL-3.0-only. Third-party components retain their own
+is licensed under MIT. Third-party components retain their own
 copyright notices and licence terms. This declaration provides attribution
 and source references; it does not replace the upstream licence texts or
 grant additional permissions.
@@ -31,7 +31,7 @@ Sources:
 The exact font sources and checksums are in [firmware/assets/fonts/sources.json](../firmware/assets/fonts/sources.json).
 Attribution, modification details and licence texts are in that directory's
 [NOTICE.txt](../firmware/assets/fonts/NOTICE.txt), [OFL.txt](../firmware/assets/fonts/OFL.txt) and [LVGL-MIT.txt](../firmware/assets/fonts/LVGL-MIT.txt). Retain those notices with distributions
-of the font assets. Modified fonts remain under OFL-1.1; the project's GPL
+of the font assets. Modified fonts remain under OFL-1.1; the project's MIT
 licence does not replace the font licence.
 
 ## Weather and interface symbols
@@ -72,7 +72,7 @@ Sources:
 
 Freenove's overall resource package has separate CC BY-NC-SA 3.0 terms.
 The TFT_eSPI attribution here covers the identified library source, not
-permission to reuse other Freenove documentation or resources under GPL.
+permission to reuse other Freenove documentation or resources under MIT.
 
 ## Rust dependencies
 
@@ -133,10 +133,12 @@ Apache-2.0, revision 79e618f033e926d134decc6d95bb1b1850bd032c.
 - [esp-coex-lib source repository](https://github.com/espressif/esp-coex-lib/tree/79e618f033e926d134decc6d95bb1b1850bd032c)
 
 Publishing the project's open source code does not change these libraries'
-source availability. Distribution of combined firmware executables remains
-subject to the applicable GPL source obligations and any valid exceptions,
-as well as upstream terms. This project declares no additional linking
-exception, and this declaration grants no exemption from those obligations.
+source availability. The project's MIT licence permits distribution of the
+firmware without requiring disclosure of those libraries' implementation
+source. Binary distributions must retain the project's MIT copyright and
+permission notice and satisfy each included component's upstream terms,
+including applicable licence, copyright and NOTICE requirements. This
+declaration does not replace those terms or grant exemptions from them.
 
 ## HTTPS certificate data
 
@@ -172,7 +174,7 @@ Sources and terms:
 The free public API permits non-commercial service use and imposes request
 limits. Commercial service use requires an appropriate arrangement or another
 provider. These conditions govern API access; they do not impose a
-non-commercial restriction on the project's GPL-licensed source code.
+non-commercial restriction on the project's MIT-licensed source code.
 
 ## Build and asset tools
 

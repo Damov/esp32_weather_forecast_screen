@@ -69,7 +69,9 @@ Default cleanup removes Cargo build output, mutation-test output, Python bytecod
 
 ## Licences and credits
 
-The firmware source code is licensed under [GPL-3.0-only](LICENSE). Third-party components retain their own licences. This project was inspired by [Aura](https://github.com/Surrey-Homeware/Aura).
+The firmware source code is licensed under [MIT](LICENSE). Third-party components retain their own licences. This project was inspired by [Aura](https://github.com/Surrey-Homeware/Aura).
+
+As of the MIT relicensing change on 4 October 2026, the project's own code is available under MIT. Earlier versions were published under GPL-3.0-only; rights already granted under that licence remain in effect. Third-party code and assets retain their respective licences.
 
 - **Fonts:** [Montserrat](https://github.com/JulietaUla/Montserrat) by Julieta Ulanovsky and contributors (OFL-1.1), using [LVGL](https://github.com/lvgl/lvgl) font source material (MIT).
 - **Symbols:** [Meteocons](https://github.com/basmilius/meteocons) by Bas Milius and [Tabler Icons](https://github.com/tabler/tabler-icons) by Paweł Kuna (MIT).

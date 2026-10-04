@@ -1,0 +1,350 @@
+{
+  "excluded_codegen": {
+    "build-time@0.1.3": "Proc macro emits only a generated timestamp string literal, not library implementation code."
+  },
+  "format": 1,
+  "limitations": "Evidence review only; no certification of copyright ownership or absolute legality.",
+  "metadata_only_packages": {
+    "void@1.0.2": "Original MIT README and author declaration retained."
+  },
+  "reviewed_compiler_version": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20260121) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "reviewed_rust_version": "rustc 1.97.0-nightly (8ea53bcd7 2026-07-08) (1.97.0.0)\nbinary: rustc\ncommit-hash: 8ea53bcd7257011cbf96f6398551bdc650b04334\ncommit-date: 2026-07-08\nhost: x86_64-unknown-linux-gnu\nrelease: 1.97.0-nightly\nLLVM version: 21.1.3",
+  "reviewed_sdk_revision": "b774170ff46c393eeb5e495ea37936038d3f4f4f",
+  "rust_packages": [
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "anyhow",
+      "version": "1.0.104"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "atomic-waker",
+      "version": "1.1.2"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "az",
+      "version": "1.2.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "bitflags",
+      "version": "1.3.2"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "byteorder",
+      "version": "1.5.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "cfg-if",
+      "version": "1.0.5"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "chrono",
+      "version": "0.4.45"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "chrono-tz",
+      "version": "0.10.4"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "compile-fmt",
+      "version": "0.1.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "const_format",
+      "version": "0.2.36"
+    },
+    {
+      "coverage": "code-generation notice",
+      "name": "const_format_proc_macros",
+      "version": "0.2.34"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "critical-section",
+      "version": "1.2.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "defmt",
+      "version": "1.1.1"
+    },
+    {
+      "coverage": "code-generation notice",
+      "name": "defmt-macros",
+      "version": "1.1.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embassy-futures",
+      "version": "0.1.2"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embassy-sync",
+      "version": "0.8.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-can",
+      "version": "0.4.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-graphics",
+      "version": "0.8.2"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-graphics-core",
+      "version": "0.4.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-hal",
+      "version": "0.2.7"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-hal",
+      "version": "1.0.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-hal-async",
+      "version": "1.0.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-hal-nb",
+      "version": "1.0.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-io",
+      "version": "0.7.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-io-async",
+      "version": "0.7.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "embedded-svc",
+      "version": "0.29.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "enumset",
+      "version": "1.1.14"
+    },
+    {
+      "coverage": "code-generation notice",
+      "name": "enumset_derive",
+      "version": "0.15.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "esp-idf-hal",
+      "version": "0.47.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "esp-idf-svc",
+      "version": "0.53.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "esp-idf-sys",
+      "version": "0.38.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "float-cmp",
+      "version": "0.9.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "futures-core",
+      "version": "0.3.34"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "futures-io",
+      "version": "0.3.34"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "futures-sink",
+      "version": "0.3.34"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "hash32",
+      "version": "0.3.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "heapless",
+      "version": "0.8.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "heapless",
+      "version": "0.9.3"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "iana-time-zone",
+      "version": "0.1.65"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "itoa",
+      "version": "1.0.18"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "konst",
+      "version": "0.2.20"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "konst_macro_rules",
+      "version": "0.2.19"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "libc",
+      "version": "0.2.189"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "log",
+      "version": "0.4.34"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "memchr",
+      "version": "2.8.3"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "micromath",
+      "version": "2.1.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "mipidsi",
+      "version": "0.10.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "nb",
+      "version": "0.1.3"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "nb",
+      "version": "1.1.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "num-traits",
+      "version": "0.2.19"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "num_enum",
+      "version": "0.7.6"
+    },
+    {
+      "coverage": "code-generation notice",
+      "name": "num_enum_derive",
+      "version": "0.7.6"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "phf",
+      "version": "0.12.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "phf_shared",
+      "version": "0.12.1"
+    },
+    {
+      "coverage": "code-generation notice",
+      "name": "rustversion",
+      "version": "1.0.23"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "serde",
+      "version": "1.0.229"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "serde_core",
+      "version": "1.0.229"
+    },
+    {
+      "coverage": "code-generation notice",
+      "name": "serde_derive",
+      "version": "1.0.229"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "serde_json",
+      "version": "1.0.151"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "siphasher",
+      "version": "1.0.4"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "stable_deref_trait",
+      "version": "1.2.1"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "strum",
+      "version": "0.27.2"
+    },
+    {
+      "coverage": "code-generation notice",
+      "name": "strum_macros",
+      "version": "0.27.2"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "uncased",
+      "version": "0.9.10"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "void",
+      "version": "1.0.2"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "zeroize",
+      "version": "1.9.0"
+    },
+    {
+      "coverage": "ESP32 target dependency",
+      "name": "zmij",
+      "version": "1.0.23"
+    }
+  ]
+}

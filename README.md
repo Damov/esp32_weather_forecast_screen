@@ -56,16 +56,16 @@ See the [firmware README](firmware/README.md) for implementation details, host t
 
 ## Licences and credits
 
-The firmware is licensed under [GPL-3.0-only](LICENSE). This project was inspired by [Aura](https://github.com/Surrey-Homeware/Aura).
+The firmware source code is licensed under [GPL-3.0-only](LICENSE). Third-party components retain their own licences. This project was inspired by [Aura](https://github.com/Surrey-Homeware/Aura).
 
-The weather symbols are Bas Milius's flat [Meteocons](https://github.com/basmilius/meteocons), distributed under the [MIT licence](firmware/assets/weather/MIT.txt). The
-[conversion notice](firmware/assets/weather/NOTICE.txt) describes the embedded bitmap versions. The settings gear comes from Paweł Kuna's [Tabler Icons](https://github.com/tabler/tabler-icons), also under [MIT](firmware/assets/ui/MIT.txt), with its own [attribution notice](firmware/assets/ui/NOTICE.txt).
+- **Fonts:** [Montserrat](https://github.com/JulietaUla/Montserrat) by Julieta Ulanovsky and contributors (OFL-1.1), using [LVGL](https://github.com/lvgl/lvgl) font source material (MIT).
+- **Symbols:** [Meteocons](https://github.com/basmilius/meteocons) by Bas Milius and [Tabler Icons](https://github.com/tabler/tabler-icons) by Paweł Kuna (MIT).
+- **Display:** ST7796 initialization adapted from [TFT_eSPI](https://github.com/Bodmer/TFT_eSPI/tree/V2.5.43) by Bodmer (MIT/BSD).
+- **Platform:** [ESP-IDF](https://github.com/espressif/esp-idf/tree/v5.5.5) and Rust libraries listed in the [dated dependency CSV](docs/third-party-rust-2026-10-04.csv). ESP32 Wi-Fi and PHY require precompiled Espressif libraries without publicly available complete implementation source.
+- **HTTPS certificates:** [Mozilla CA certificate data](https://curl.se/docs/caextract.html) (MPL-2.0).
+- **Weather and locations:** [Open-Meteo](https://open-meteo.com/) and [GeoNames](https://www.geonames.org/) (data attribution under CC BY 4.0). Open-Meteo's free API has [non-commercial service terms](https://open-meteo.com/en/terms).
 
-The fonts are derived from [Montserrat](https://github.com/JulietaUla/Montserrat), originally designed by Julieta Ulanovsky and developed by the Montserrat project contributors. They retain the [SIL Open Font Licence 1.1](firmware/assets/fonts/OFL.txt). The [font notice](firmware/assets/fonts/NOTICE.txt) records the subset and bitmap conversions. The [LVGL MIT notice](firmware/assets/fonts/LVGL-MIT.txt) applies to the LVGL source material used in those conversions.
-
-Keep the symbol and font licence and attribution files with source and binary releases. These assets retain their own licences alongside the firmware's GPL licence. Other retained dependency notices are in [the dependency notices directory](firmware/assets/licenses).
-
-Weather and location data come from Open-Meteo, with location data from [GeoNames](https://www.geonames.org/). Open-Meteo data is attributed under [CC BY 4.0](https://open-meteo.com/en/licence). The display selects forecast entries, rounds temperatures, converts units and maps weather codes to symbols. The free public API has separate [service terms](https://open-meteo.com/en/terms), including non-commercial use and request limits.
+See the [third-party declaration dated 4 October 2026](docs/third-party-declaration-2026-10-04.md) for sources, versions, licences and attribution details.
 
 ## TODO
 
@@ -77,4 +77,3 @@ Weather and location data come from Open-Meteo, with location data from [GeoName
 <b>This project and all associated files, documentation, and source code are provided “as is” without any express or implied warranties, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, and non‑infringement. The author and contributors of this repository assume no responsibility or liability for any direct, indirect, incidental, or consequential damages that may occur through the use, modification, or distribution of the software and hardware designs contained herein. This includes, but is not limited to, hardware damage, data loss, malfunctioning devices, or personal injury that may arise from incorrect wiring, improper configuration, or misuse of the provided code and documentation. Users are encouraged to review, test, and verify all code before deploying it on any system. If you choose to use this project, you do so entirely at your own risk. By downloading, copying, modifying, or using any part of this project, you acknowledge that you have read, understood, and agree to this disclaimer.
 
 The HLK-LD2410C radar module’s CE status is unknown to this project. The existence of an EU declaration of conformity or US regulatory compliance documentation has not been verified. Check your local laws and regulatory requirements before using the radar. Use it at your own risk.</b>
-

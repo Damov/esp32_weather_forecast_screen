@@ -1,0 +1,308 @@
+{
+  "idf_version": "v5.5.5",
+  "idf_git_tree": "b774170ff46c393eeb5e495ea37936038d3f4f4f",
+  "submodules": [
+    {
+      "path": "components/bootloader/subproject/components/micro-ecc/micro-ecc",
+      "repository": "kmackay/micro-ecc",
+      "revision": "24c60e243580c7868f4334a1ba3123481fe1aa48",
+      "license_files": [
+        {
+          "path": "LICENSE.txt",
+          "url": "https://raw.githubusercontent.com/kmackay/micro-ecc/24c60e243580c7868f4334a1ba3123481fe1aa48/LICENSE.txt"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/bt/controller/lib_esp32",
+      "repository": "espressif/esp32-bt-lib",
+      "revision": "b4b7c54b1eab6a844789b69e56322ef5736eddc8",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp32-bt-lib/b4b7c54b1eab6a844789b69e56322ef5736eddc8/LICENSE"
+        }
+      ],
+      "esp32_archives": [
+        "esp32/libbtdm_app.a"
+      ]
+    },
+    {
+      "path": "components/bt/controller/lib_esp32c2/esp32c2-bt-lib",
+      "repository": "espressif/esp32c2-bt-lib",
+      "revision": "6a5c0b8bfca1a2e984e89431b8ebf9b521dad5ea",
+      "license_files": [
+        {
+          "path": "NOTICE",
+          "url": "https://raw.githubusercontent.com/espressif/esp32c2-bt-lib/6a5c0b8bfca1a2e984e89431b8ebf9b521dad5ea/NOTICE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/bt/controller/lib_esp32c3_family",
+      "repository": "espressif/esp32c3-bt-lib",
+      "revision": "0a08c4b32f3666003080b662a1a61794da24ff0f",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp32c3-bt-lib/0a08c4b32f3666003080b662a1a61794da24ff0f/LICENSE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/bt/controller/lib_esp32c5/esp32c5-bt-lib",
+      "repository": "espressif/esp32c5-bt-lib",
+      "revision": "c328228f53fe167cc9fbd05b5bef37158f64956d",
+      "license_files": [
+        {
+          "path": "NOTICE",
+          "url": "https://raw.githubusercontent.com/espressif/esp32c5-bt-lib/c328228f53fe167cc9fbd05b5bef37158f64956d/NOTICE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/bt/controller/lib_esp32c6/esp32c6-bt-lib",
+      "repository": "espressif/esp32c6-bt-lib",
+      "revision": "e7be018522c85e67c298effc8ffa7f5b84887a7b",
+      "license_files": [
+        {
+          "path": "NOTICE",
+          "url": "https://raw.githubusercontent.com/espressif/esp32c6-bt-lib/e7be018522c85e67c298effc8ffa7f5b84887a7b/NOTICE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/bt/controller/lib_esp32h2/esp32h2-bt-lib",
+      "repository": "espressif/esp32h2-bt-lib",
+      "revision": "b2b8fd009c31816497d55726af297761147beb07",
+      "license_files": [
+        {
+          "path": "NOTICE",
+          "url": "https://raw.githubusercontent.com/espressif/esp32h2-bt-lib/b2b8fd009c31816497d55726af297761147beb07/NOTICE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/bt/esp_ble_mesh/lib/lib",
+      "repository": "espressif/esp-ble-mesh-lib",
+      "revision": "e44762384ed104a0ebc78f134eeba5f3ab648ddc",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp-ble-mesh-lib/e44762384ed104a0ebc78f134eeba5f3ab648ddc/LICENSE"
+        }
+      ],
+      "esp32_archives": [
+        "esp32/libble_mesh.a"
+      ]
+    },
+    {
+      "path": "components/bt/host/nimble/nimble",
+      "repository": "espressif/esp-nimble",
+      "revision": "685675c0128deafdd201c9eb82e61d227364646c",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp-nimble/685675c0128deafdd201c9eb82e61d227364646c/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://raw.githubusercontent.com/espressif/esp-nimble/685675c0128deafdd201c9eb82e61d227364646c/NOTICE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/cmock/CMock",
+      "repository": "ThrowTheSwitch/CMock",
+      "revision": "eeecc49ce8af123cf8ad40efdb9673e37b56230f",
+      "license_files": [
+        {
+          "path": "LICENSE.txt",
+          "url": "https://raw.githubusercontent.com/ThrowTheSwitch/CMock/eeecc49ce8af123cf8ad40efdb9673e37b56230f/LICENSE.txt"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/esp_coex/lib",
+      "repository": "espressif/esp-coex-lib",
+      "revision": "79e618f033e926d134decc6d95bb1b1850bd032c",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp-coex-lib/79e618f033e926d134decc6d95bb1b1850bd032c/LICENSE"
+        }
+      ],
+      "esp32_archives": [
+        "esp32/libcoexist.a"
+      ]
+    },
+    {
+      "path": "components/esp_phy/lib",
+      "repository": "espressif/esp-phy-lib",
+      "revision": "59c1234e929212aec0fdda75769b759951235536",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp-phy-lib/59c1234e929212aec0fdda75769b759951235536/LICENSE"
+        }
+      ],
+      "esp32_archives": [
+        "esp32/libbttestmode.a",
+        "esp32/libphy.a",
+        "esp32/librftest.a",
+        "esp32/librtc.a"
+      ]
+    },
+    {
+      "path": "components/esp_wifi/lib",
+      "repository": "espressif/esp32-wifi-lib",
+      "revision": "22bb3517b08760ed43b889013f8a122db0d46da0",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp32-wifi-lib/22bb3517b08760ed43b889013f8a122db0d46da0/LICENSE"
+        }
+      ],
+      "esp32_archives": [
+        "esp32/libcore.a",
+        "esp32/libespnow.a",
+        "esp32/libmesh.a",
+        "esp32/libnet80211.a",
+        "esp32/libpp.a",
+        "esp32/libsmartconfig.a",
+        "esp32/libwapi.a"
+      ]
+    },
+    {
+      "path": "components/heap/tlsf",
+      "repository": "espressif/tlsf",
+      "revision": "2867f6883a12920b1969ff9624c0ab0e4185c2ce",
+      "license_files": [],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/json/cJSON",
+      "repository": "DaveGamble/cJSON",
+      "revision": "b2890c8d76bbb64e710585ebc0a917196b9c67e7",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/DaveGamble/cJSON/b2890c8d76bbb64e710585ebc0a917196b9c67e7/LICENSE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/lwip/lwip",
+      "repository": "espressif/esp-lwip",
+      "revision": "fd432e4ee2cfb7f7f1c7eb7227e0173412e7b84e",
+      "license_files": [
+        {
+          "path": "COPYING",
+          "url": "https://raw.githubusercontent.com/espressif/esp-lwip/fd432e4ee2cfb7f7f1c7eb7227e0173412e7b84e/COPYING"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/mbedtls/mbedtls",
+      "repository": "espressif/mbedtls",
+      "revision": "9d669eadb1955d348986b9280156710aaaadf79f",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/mbedtls/9d669eadb1955d348986b9280156710aaaadf79f/LICENSE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/mqtt/esp-mqtt",
+      "repository": "espressif/esp-mqtt",
+      "revision": "0e9ec171b448db2101ea537300976b7ffe595941",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp-mqtt/0e9ec171b448db2101ea537300976b7ffe595941/LICENSE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/openthread/lib",
+      "repository": "espressif/esp-thread-lib",
+      "revision": "33209823e559560f54dcd41cbf3dbdd27f46d569",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/esp-thread-lib/33209823e559560f54dcd41cbf3dbdd27f46d569/LICENSE"
+        }
+      ],
+      "esp32_archives": [
+        "esp32/libopenthread_br.a"
+      ]
+    },
+    {
+      "path": "components/openthread/openthread",
+      "repository": "espressif/openthread",
+      "revision": "b678a4f63b6f9397d1a0fa8f31e5b8e0271a4d00",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/espressif/openthread/b678a4f63b6f9397d1a0fa8f31e5b8e0271a4d00/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "url": "https://raw.githubusercontent.com/espressif/openthread/b678a4f63b6f9397d1a0fa8f31e5b8e0271a4d00/NOTICE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/protobuf-c/protobuf-c",
+      "repository": "protobuf-c/protobuf-c",
+      "revision": "abc67a11c6db271bedbb9f58be85d6f4e2ea8389",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/protobuf-c/protobuf-c/abc67a11c6db271bedbb9f58be85d6f4e2ea8389/LICENSE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/spiffs/spiffs",
+      "repository": "pellepl/spiffs",
+      "revision": "ad902cadceb39d0825a97e25ecb5867641f606ba",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/pellepl/spiffs/ad902cadceb39d0825a97e25ecb5867641f606ba/LICENSE"
+        }
+      ],
+      "esp32_archives": []
+    },
+    {
+      "path": "components/unity/unity",
+      "repository": "ThrowTheSwitch/Unity",
+      "revision": "bf560290f6020737eafaa8b5cbd2177c3956c03f",
+      "license_files": [
+        {
+          "path": "LICENSE.txt",
+          "url": "https://raw.githubusercontent.com/ThrowTheSwitch/Unity/bf560290f6020737eafaa8b5cbd2177c3956c03f/LICENSE.txt"
+        }
+      ],
+      "esp32_archives": []
+    }
+  ],
+  "scope": "Upstream ESP-IDF submodule sources, including optional components and components for other targets. Actual firmware inclusion depends on the target and build configuration.",
+  "declaration_date": "2026-10-04"
+}

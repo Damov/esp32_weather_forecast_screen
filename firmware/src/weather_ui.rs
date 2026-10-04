@@ -836,6 +836,10 @@ fn draw_settings_gear<D: DrawTarget<Color = Rgb565>>(display: &mut D) -> Result<
     display.fill_contiguous(&area, pixels)
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+//                                    UNIT TESTS                                     //
+///////////////////////////////////////////////////////////////////////////////////////
+
 #[cfg(test)]
 mod analog_tests {
     use super::*;

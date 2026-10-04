@@ -19,20 +19,39 @@
 // indices.                                                                      //
 // ============================================================================= //
 
+//! Language selection and translations for the device interface.
+
 use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Language {
     #[serde(alias = "Turkish")]
+    // Represent english as a distinct selectable state or action; the matching handler determines
+    // its effect.
     English,
+    // Represent spanish as a distinct selectable state or action; the matching handler determines
+    // its effect.
     Spanish,
+    // Represent german as a distinct selectable state or action; the matching handler determines
+    // its effect.
     German,
+    // Represent french as a distinct selectable state or action; the matching handler determines
+    // its effect.
     French,
+    // Represent ukrainian as a distinct selectable state or action; the matching handler determines
+    // its effect.
     Ukrainian,
+    // Represent swedish as a distinct selectable state or action; the matching handler determines
+    // its effect.
     Swedish,
+    // Represent italian as a distinct selectable state or action; the matching handler determines
+    // its effect.
     Italian,
+    // Represent russian as a distinct selectable state or action; the matching handler determines
+    // its effect.
     Russian,
 }
 impl Language {
+    // Keep language order stable because saved preference indices depend on these exact positions.
     pub const ALL: [Self; 8] = [
         Self::English,
         Self::Spanish,
@@ -43,12 +62,40 @@ impl Language {
         Self::Italian,
         Self::Russian,
     ];
+    /// Looks up a supported language by its persisted index.
+    ///
+    /// # Arguments
+    ///
+    /// * `index` (`u32`) - Persisted language index to look up.
+    ///
+    /// # Returns
+    ///
+    /// `Option<Self>` - Some language for an existing slot; None for an out-of-range index.
     pub fn from_index(index: u32) -> Option<Self> {
+        // Execute copied for get result for the surrounding operation.
         Self::ALL.get(index as usize).copied()
     }
+    /// Returns the language's stable persisted position.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` (`Language`) - Receiver state used by this operation. Passed by value.
+    ///
+    /// # Returns
+    ///
+    /// `usize` - Zero-based index into the supported language list.
     pub fn index(self) -> usize {
         self as usize
     }
+    /// Returns the language's native display name.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` (`Language`) - Receiver state used by this operation. Passed by value.
+    ///
+    /// # Returns
+    ///
+    /// `&'static str` - Static localized language name for the settings selector.
     pub fn name(self) -> &'static str {
         [
             "English",
@@ -61,11 +108,35 @@ impl Language {
             "Русский",
         ][self.index()]
     }
+    /// Returns the language code used in location requests.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` (`Language`) - Receiver state used by this operation. Passed by value.
+    ///
+    /// # Returns
+    ///
+    /// `&'static str` - Static API language code corresponding to this language.
     pub fn code(self) -> &'static str {
         ["en", "es", "de", "fr", "uk", "sv", "it", "ru"][self.index()]
     }
 }
+/// Translates a known interface string into the selected language.
+///
+/// # Arguments
+///
+/// * `language` (`Language`) - Supported language used for translated labels or API
+///   requests.
+/// * `text` (`&str`) - Text to translate, measure, clip, or draw.
+///
+/// # Returns
+///
+/// `&str` - Borrowed translation, or the original text when no translation is defined.
 pub fn tr(language: Language, text: &str) -> &str {
+    // Each arm maps an English lookup key to eight translations in Language::ALL order. The stable
+    // language index selects the corresponding text; the fallback returns unknown keys unchanged.
+    // Choose the appropriate path for sanitized or clipped text prepared for the available drawing
+    // area; each arm handles one supported case.
     match text {
         "min" => ["min", "min", "min", "min", "хв", "min", "min", "мин"][language.index()],
         "Clock" => ["Clock", "Reloj", "Uhr", "Horloge", "Годинник", "Klocka", "Orologio", "Часы"][language.index()],
@@ -180,7 +251,19 @@ pub fn tr(language: Language, text: &str) -> &str {
         other => other,
     }
 }
+/// Translates each line of a prompt independently.
+///
+/// # Arguments
+///
+/// * `language` (`Language`) - Supported language used for translated labels or API
+///   requests.
+/// * `text` (`&str`) - Text to translate, measure, clip, or draw.
+///
+/// # Returns
+///
+/// `String` - Owned translated lines joined by newline characters.
 pub fn multiline(language: Language, text: &str) -> String {
+    // Execute join for <Vec< >> result for the surrounding operation.
     text.split('\n')
         .map(|line| tr(language, line))
         .collect::<Vec<_>>()
@@ -191,11 +274,27 @@ pub fn multiline(language: Language, text: &str) -> String {
 //                                    UNIT TESTS                                     //
 ///////////////////////////////////////////////////////////////////////////////////////
 
+/// Unit tests and supporting fixtures for i18n behavior.
 #[cfg(test)]
 mod tests {
     use super::*;
+    /// Verifies stable persisted language indices and the expected supported-language mappings.
+    ///
+    /// # Arguments
+    ///
+    /// None.
+    ///
+    /// # Returns
+    ///
+    /// `()` - No value; completes when the expected test assertions hold.
+    ///
+    /// # Panics
+    ///
+    /// Assertions or fixture assumptions panic if the tested behavior is violated.
     #[test]
     fn language_indices_preserve_existing_slots() {
+        // Visit each entry in enumerate result for the surrounding operation; the loop binding
+        // provides its value or index for this iteration.
         for (index, language) in [
             Language::English,
             Language::Spanish,
@@ -208,17 +307,39 @@ mod tests {
         .into_iter()
         .enumerate()
         {
+            // Verify that returns the language's stable persisted position exactly matches
+            // zero-based position of the selected entry.
             assert_eq!(language.index(), index);
+            // Verify that looks up a supported language by its persisted index exactly matches an
+            // available value for selected language for interface text and location search.
             assert_eq!(Language::from_index(index as u32), Some(language));
         }
+        // Verify that looks up a supported language by its persisted index exactly matches an
+        // available value for Language Russian.
         assert_eq!(Language::from_index(7), Some(Language::Russian));
+        // Verify that looks up a supported language by its persisted index exactly matches no
+        // available value.
         assert_eq!(Language::from_index(8), None);
+        // Verify that returns the language's native display name exactly matches the specified
+        // message, format, or data literal.
         assert_eq!(Language::Ukrainian.name(), "Українська");
+        // Verify that returns the language code used in location requests exactly matches the
+        // specified message, format, or data literal.
         assert_eq!(Language::Ukrainian.code(), "uk");
+        // Verify that translates a known interface string into the selected language exactly
+        // matches the specified message, format, or data literal.
         assert_eq!(tr(Language::Ukrainian, "Settings"), "Налаштування");
+        // Verify that returns the language's native display name exactly matches the specified
+        // message, format, or data literal.
         assert_eq!(Language::Russian.name(), "Русский");
+        // Verify that returns the language code used in location requests exactly matches the
+        // specified message, format, or data literal.
         assert_eq!(Language::Russian.code(), "ru");
+        // Verify that translates a known interface string into the selected language exactly
+        // matches the specified message, format, or data literal.
         assert_eq!(tr(Language::Russian, "Settings"), "Настройки");
+        // Verify that translates each line of a prompt independently exactly matches the specified
+        // message, format, or data literal.
         assert_eq!(
             multiline(Language::Russian, "Settings\nBack"),
             "Настройки\nНазад"

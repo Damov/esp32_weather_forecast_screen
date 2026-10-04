@@ -11,6 +11,11 @@ copyright notices and licence terms. This declaration provides attribution
 and source references; it does not replace the upstream licence texts or
 grant additional permissions.
 
+The [collected release notices](licensing/THIRD-PARTY-NOTICES.txt) retain original
+licence and copyright texts, supplemental source notices and certificate source
+materials. The [release workflow](FIRMWARE_RELEASE_LICENSES.md) explains offline
+validation and distribution packaging; its checks are not legal certification.
+
 ## Fonts
 
 Montserrat was originally designed by Julieta Ulanovsky and is developed
@@ -91,7 +96,8 @@ where upstream offers alternatives; it does not relicense a package.
 
 The declared terms include MIT, Apache-2.0, BSD-3-Clause, ISC and Zlib.
 unicode-ident additionally includes Unicode-3.0 terms, whose notice must
-be retained for the covered material. Copyright and applicable licence
+be retained for the covered material. regex-syntax also includes separately
+licensed Unicode tables whose original notices are retained. Copyright and applicable licence
 texts remain required even for packages without a separate licence file
 inside the package archive. Retained notices for Chrono, Chrono-TZ, Serde
 and serde_json are under [firmware/assets/licenses/](../firmware/assets/licenses/). Chrono-TZ also uses
@@ -102,7 +108,8 @@ public-domain IANA time-zone data.
 The firmware targets ESP32 using ESP-IDF v5.5.5 and the esp Rust toolchain.
 ESP-IDF's original open source code is under Apache-2.0. Other SDK sources
 include FreeRTOS (MIT), lwIP and wpa_supplicant (BSD), TLSF (BSD-3-Clause),
-Newlib (component-specific terms) and Mbed TLS (Apache-2.0 or GPL-2.0-or-later).
+Newlib (component-specific terms) and Mbed TLS (Apache-2.0 or GPL-2.0-or-later,
+with Apache-2.0 selected for this distribution).
 Individual source notices and upstream licence texts govern each component.
 
 Sources:

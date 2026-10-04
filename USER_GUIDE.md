@@ -2,6 +2,8 @@
 
 The screenshots below come from the firmware renderer at the display's native 320 × 480 resolution and use synthetic weather, network, and location data. They show the controls you will use on the device.
 
+Downloaded firmware should come in a release archive with its license notices and certificate source materials. Keep those accompanying materials when redistributing the images. See the [release licensing workflow](docs/FIRMWARE_RELEASE_LICENSES.md).
+
 ## Installing the firmware under Linux
 
 Build the release firmware using the [Linux build instructions](README.md#building-on-linux). Run the commands below from the repository root. They target the supported classic ESP32 board with 4 MiB flash. Images built for an ESP32-S3 or a different display board are not suitable.

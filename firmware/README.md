@@ -4,6 +4,8 @@ This directory contains the Rust application, using ESP-IDF with standard-librar
 
 Run the commands in this document from the repository root.
 
+For binary distribution, use the [release licensing workflow](../docs/FIRMWARE_RELEASE_LICENSES.md) to check the original third-party notices and package them with the firmware.
+
 ## Build layout under Linux
 
 Use `./build.sh` for device builds. It resolves `firmware/partitions.csv` to an absolute path in `firmware/target/esp32-partitions.sdkconfig`. That generated file supplies only the partition filename. `firmware/sdkconfig.defaults` supplies the remaining settings. Host tests and previews can use Cargo directly.

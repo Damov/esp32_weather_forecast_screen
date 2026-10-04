@@ -1,0 +1,110 @@
+name: Firmware release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: firmware-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate version
+        id: version
+        run: python3 tools/ci_release.py version
+      - name: Check reviewed license evidence and tests
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python3 tools/license_release.py check
+          python3 -m unittest discover -s tools/tests -p 'test_*.py'
+      - name: Install host prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build pkg-config libclang-dev libssl-dev python3-venv python3-pip git curl
+      - name: Install pinned Rust and ESP tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          rustup toolchain install stable --profile minimal
+          cargo +stable install espup --version 0.18.0 --locked
+          cargo +stable install ldproxy --version 0.3.5 --locked
+          espup install --std --targets esp32 --toolchain-version 1.97.0.0
+          cargo +stable fetch --locked --manifest-path firmware/Cargo.toml
+      - name: Build, collect matching evidence, and verify archives
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          source "$HOME/export-esp.sh"
+          unset IDF_PATH
+          python3 tools/ci_release.py build
+      - name: Upload complete firmware packages
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: firmware-${{ steps.version.outputs.version }}
+          path: |
+            firmware/target/license-release/weather-forecast-${{ steps.version.outputs.version }}.zip
+            firmware/target/license-release/weather-forecast-${{ steps.version.outputs.version }}.tar.gz
+            firmware/target/license-release/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 30
+
+  publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: firmware-${{ needs.build.outputs.version }}
+          path: release
+      - name: Verify archives and publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_COMMIT: ${{ github.sha }}
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release
+          sha256sum --check SHA256SUMS
+          # List first so API/network failures cannot be mistaken for an absent release.
+          gh api --paginate "repos/$GH_REPO/releases" --jq '.[].tag_name' > existing-tags.txt
+          if grep -Fxq -- "$RELEASE_TAG" existing-tags.txt; then
+            echo "Release already exists; refusing to overwrite it: $RELEASE_TAG" >&2
+            exit 1
+          fi
+          cat > release-notes.txt <<'EOF'
+          Firmware for the classic ESP32 board with 4 MiB flash.
+
+          Download a complete weather-forecast ZIP or tar.gz package. Each contains all three flash images, installation instructions, third-party notices, required certificate sources, build provenance, and payload checksums. SHA256SUMS verifies the two downloadable archives.
+
+          Project code is MIT-licensed. Included third-party components retain their respective licenses; see the accompanying license files. Keep those materials when redistributing extracted images. Checks establish evidence integrity, not legal certification.
+
+          The Source code links below provide this tag's repository contents, not prebuilt firmware.
+          EOF
+          flags=()
+          if [[ "$PRERELEASE" == true ]]; then flags+=(--prerelease); fi
+          gh release create "$RELEASE_TAG" --verify-tag --target "$RELEASE_COMMIT" --draft --title "$RELEASE_TAG" --notes-file release-notes.txt "${flags[@]}"
+          gh release upload "$RELEASE_TAG" weather-forecast-*.zip weather-forecast-*.tar.gz SHA256SUMS
+          gh release edit "$RELEASE_TAG" --draft=false

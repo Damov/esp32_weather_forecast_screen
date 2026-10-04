@@ -2,6 +2,8 @@
 
 A desktop weather display built around a 4-inch ESP32 touchscreen. It shows the local time, current weather and daily and hourly forecasts from Open-Meteo. The project includes Rust firmware for the Freenove FNK0103S display with an ESP32-WROOM-32E module, plus a 3D-printable enclosure and stand. An optional HLK-LD2410C radar detects presence to wake the screen.
 
+The firmware was created using AI and agentic coding tools under human supervision.
+
 <p align="center">
 <img src="images/20260929_134300.jpg" alt="Weather display in its printed enclosure and stand" width="400">
 </p>

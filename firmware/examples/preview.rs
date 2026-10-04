@@ -2320,9 +2320,9 @@ mod tests {
             weather_ui::render_clock(&mut expected, &app).unwrap();
             // Verify that 0 exactly matches 0.
             assert_eq!(actual.0, expected.0);
-            // Visit each entry in 214..316; the loop binding provides its value or index for this
+            // Visit each entry in 238..316; the loop binding provides its value or index for this
             // iteration.
-            for y in 214..316 {
+            for y in 238..316 {
                 // Visit each entry in 12..308; the loop binding provides its value or index for
                 // this iteration.
                 for x in 12..308 {
@@ -2355,9 +2355,9 @@ mod tests {
             // Require the value guaranteed by this test fixture or internal invariant; unexpected
             // absence panics.
             weather_ui::render_clock(&mut canvas, &app).unwrap();
-            // Visit each entry in 214..263; the loop binding provides its value or index for this
+            // Visit each entry in 238..287; the loop binding provides its value or index for this
             // iteration.
-            for y in 214..263 {
+            for y in 238..287 {
                 // Visit each entry in 12..308; the loop binding provides its value or index for
                 // this iteration.
                 for x in 12..308 {

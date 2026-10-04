@@ -1,6 +1,6 @@
 // ============================================================================= //
 // File          : theme.rs                                                      //
-// License       : GPL-3.0-only                                                  //
+// License       : MIT                                                           //
 // Created       : 2026-10-04                                                    //
 // Last modified : 2026-10-04                                                    //
 // Author        : Daniel Kharlamov                                              //
@@ -217,7 +217,7 @@ impl Backdrop {
     }
 }
 
-// Font data is OFL-1.1, not GPL. See assets/fonts/NOTICE.txt and OFL.txt.
+// Font data remains OFL-1.1, separately from the MIT firmware code. See assets/fonts/NOTICE.txt and OFL.txt.
 pub struct Font {
     // Packed sixteen-byte glyph records sorted by Unicode codepoint. Stored as &'static [u8].
     glyphs: &'static [u8],

@@ -26,7 +26,7 @@ descenders without clipping.
 The renderer aligns both weights to a common baseline and blends coverage into
 RGB565. The 20px subset serves headings, 14px serves body/control text and 12px
 serves secondary labels. Bitmap assets remain OFL-1.1, separately from the
-GPL-3.0-only firmware and conversion script.
+MIT firmware and conversion script.
 
 Sources (exact URLs and SHA-256 checksums are in sources.json):
 - LVGL fallback fonts, version 9.2.2, lvgl/lvgl commit
@@ -50,8 +50,8 @@ with commercial firmware, subject to its conditions. Do not sell the font on
 its own, and distribute the font assets under OFL-1.1 with their copyright and
 license notices. Include NOTICE.txt, OFL.txt and LVGL-MIT.txt with distributions
 of this firmware, including standalone binary releases. The OFL is not replaced
-by the firmware's GPL license. Retain the firmware's GPL notices and applicable
-source-distribution obligations separately.
+by the firmware's MIT license. Retain the firmware's MIT copyright and
+permission notice separately.
 
 Regenerate from the project root:
   python3 tools/generate_fonts.py

@@ -1,4 +1,6 @@
 //! ST7796 initialization matching Freenove's bundled TFT_eSPI 2.5.43 driver.
+//! Upstream copyright and licence: [TFT_eSPI notice](../../assets/licenses/TFT_eSPI.txt).
+//! Retain this notice with source distributions and binary releases containing this code.
 use embedded_graphics::pixelcolor::Rgb565;
 use embedded_hal::delay::DelayNs;
 use mipidsi::{

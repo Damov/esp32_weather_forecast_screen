@@ -11,6 +11,8 @@ compliance, copyright ownership or permission to use online services.
 [Third-party notices](licensing/THIRD-PARTY-NOTICES.txt) describe the components and
 include their original notices and source origins. [The manifest](licensing/manifest.json) records
 versions, selected license alternatives, source origins and SHA-256 checksums.
+The format-3 manifest also records the application ELF hash and application
+source/configuration hashes; packaging rejects a different ELF or changed inputs.
 The collection covers the ESP32 target's normal dependencies and relevant
 code-generation providers, currently 67 package versions. Build/test-only
 packages and unrelated platforms are excluded. Macro providers are retained
@@ -82,7 +84,8 @@ For the current build layout:
 ```sh
 python3 tools/license_release.py update \
   --idf-build-dir firmware/target/xtensa-esp32-espidf/release/build/esp-idf-sys-039f6d788fc2a729/out/build \
-  --toolchain-dir firmware/.embuild/espressif/tools/xtensa-esp-elf/esp-14.2.0_20260121/xtensa-esp-elf
+  --toolchain-dir firmware/.embuild/espressif/tools/xtensa-esp-elf/esp-14.2.0_20260121/xtensa-esp-elf \
+  --firmware-dir firmware/target/xtensa-esp32-espidf/release
 python3 tools/license_release.py check
 ```
 
@@ -132,4 +135,38 @@ them clearly available to recipients. Release wording should say:
 > Project code is MIT-licensed. Included third-party components retain their
 > respective licenses; see the accompanying license files.
 
-GitHub release automation, tags and publication are separate from this workflow.
+## Automatic GitHub builds and releases
+
+The `Firmware release` GitHub Actions workflow builds on pushed version tags
+such as `v0.1.0` or `v0.1.0-rc.1`. Other `v*` tags fail validation. A successful
+tag build publishes complete firmware ZIP/tar.gz packages and an external
+`SHA256SUMS` file. GitHub supplies the tag's source ZIP and tar.gz automatically.
+The firmware archives contain the three images, installation instructions,
+notices, certificate sources and build provenance. Separate bare binary assets
+are not published.
+
+Use Actions → Firmware release → Run workflow for the first validation run.
+Select a branch containing the workflow. Manual runs upload test artifacts for
+30 days and never publish a release. The workflow must exist on GitHub's default
+branch for the manual trigger to be available. Ordinary branch pushes do not
+start firmware builds. No personal access token is required; only the tag-only
+publication job receives repository contents write permission.
+
+CI installs pinned ESP Rust 1.97.0.0 and builds with `--locked`, without caching
+application outputs. `tools/ci_release.py` discovers the active build paths from
+Cargo output. It collects evidence in a temporary directory after compilation
+and packages only the recorded ELF. All licensing policy checks still apply;
+new dependency or SDK/runtime versions require review. Repository files are not
+rewritten. All license-tool commands accept `--collection-dir` to select a
+build-specific collection; the default remains `docs/licensing`.
+
+Source and ELF hashes record the build supplied at collection time. They are
+integrity evidence, not proof that an arbitrary manually supplied ELF was built
+from those sources. CI establishes that association by running the locked build
+and collecting immediately from its reported application artifact.
+
+The release stays a draft until both archives and checksums have uploaded.
+Existing releases are never overwritten. If an upload fails after draft creation,
+inspect the draft and delete it manually before retrying; the workflow will not
+replace assets automatically. A first hosted manual run is still needed to
+validate GitHub runner setup before creating a release tag.

@@ -82,7 +82,7 @@ As of the MIT relicensing change on 4 October 2026, the project's own code is av
 
 See the [third-party declaration dated 4 October 2026](docs/third-party-declaration-2026-10-04.md) for sources, versions, licences and attribution details.
 
-Binary firmware distributions must include the accompanying third-party notices and required source materials. See the [release licensing workflow](docs/FIRMWARE_RELEASE_LICENSES.md) for the collected notices, offline checks and local ZIP/tar.gz packaging.
+Binary firmware distributions must include the accompanying third-party notices and required source materials. See the [release licensing workflow](docs/FIRMWARE_RELEASE_LICENSES.md) for the collected notices, offline checks, local packaging and automatic GitHub releases on version tags.
 
 ## TODO
 

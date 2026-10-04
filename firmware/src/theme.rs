@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : theme.rs                                                      //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Shared UI colours, backgrounds, and bitmap font rendering.                    //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Defines the interface palette, gradient backgrounds, rounded panels, and      //
+// backdrop blending. Renders proportional antialiased bitmap fonts with kerning //
+// and Unicode glyph lookup, and provides text clipping and wrapping. Font       //
+// assets retain their own licences and attribution notices.                     //
+// ============================================================================= //
+
 //! UI colours and small, shared proportional-font rendering helpers.
 use embedded_graphics::{
     pixelcolor::{Rgb565, Rgb888},

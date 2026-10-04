@@ -1,4 +1,28 @@
-//! Bounded Open-Meteo forecasts and refresh scheduling, independent of hardware.
+// ============================================================================= //
+// File          : weather.rs                                                    //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Open-Meteo forecast processing and refresh scheduling.                        //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Builds forecast requests and parses bounded current, daily, and hourly data.  //
+// Tracks location changes, request deadlines, retries, stale responses, and     //
+// forecast freshness. Selects upcoming entries, converts temperatures and local //
+// times, and maps weather codes to symbols independently of hardware.           //
+//                                                                               //
+// Note:                                                                         //
+// -----                                                                         //
+// Bounded Open-Meteo forecasts and refresh scheduling, independent of hardware. //
+// ============================================================================= //
+
 use crate::settings::{Location, Settings};
 use chrono::{DateTime, Datelike, NaiveDate, Utc};
 use serde::Deserialize;

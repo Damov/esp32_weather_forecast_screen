@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : settings_store.rs                                             //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// ESP-IDF NVS storage and legacy import for device settings.                    //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Loads and saves validated preference profiles in the app_settings NVS         //
+// namespace. Imports older weather namespace values when no current profile     //
+// exists, keeping legacy reads separate from new profile writes and returning   //
+// storage or decoding failures to the caller.                                   //
+// ============================================================================= //
+
 //! Independent NVS profile with read-only imports from the legacy weather namespace.
 use crate::settings::{LegacySettings, Settings};
 use esp_idf_svc::nvs::{EspDefaultNvs, EspDefaultNvsPartition};

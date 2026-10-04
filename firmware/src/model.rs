@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : model.rs                                                      //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Application state and Wi-Fi setup commands and events.                        //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Defines networks, security modes, protected credentials, connection failures, //
+// and UI pages. Maintains application state, processes worker events, filters   //
+// network choices, validates password input, and generates connection and retry //
+// commands while clearing secrets when no longer needed.                        //
+// ============================================================================= //
+
 use zeroize::{Zeroize, Zeroizing};
 
 pub const CONNECT_TIMEOUT_SECS: u64 = 20;

@@ -1,3 +1,25 @@
+// ============================================================================= //
+// File          : service.rs                                                    //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Hardware-independent Wi-Fi connection service.                                //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Defines backend and credential storage interfaces and drives scanning,        //
+// connection, recovery, and cancellation with monotonic time. Saves candidate   //
+// credentials only after an IP connection succeeds and reports authentication,  //
+// network, timeout, and storage failures. Tests the lifecycle with a simulated  //
+// backend.                                                                      //
+// ============================================================================= //
+
 //! Hardware-independent connection worker; time is monotonic milliseconds.
 use crate::model::{Command, Credentials, Event, Failure, Network, CONNECT_TIMEOUT_SECS};
 

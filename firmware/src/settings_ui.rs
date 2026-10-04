@@ -1,3 +1,25 @@
+// ============================================================================= //
+// File          : settings_ui.rs                                                //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Settings overlay controls, rendering, and user actions.                       //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Builds settings controls and renders localized overlays for language,         //
+// location, brightness, clock, temperature units, screen timeout, presence      //
+// wakeup, Wi-Fi reset, and touch calibration. Updates preference state and      //
+// emits save, search, reset, or calibration effects for the application to      //
+// execute.                                                                      //
+// ============================================================================= //
+
 //! Settings controls and effects. Wi-Fi state remains underneath these overlays.
 use crate::{
     i18n::{tr, Language},

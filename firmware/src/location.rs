@@ -1,4 +1,24 @@
-//! Bounded location API requests. Device I/O lives in a separate worker.
+// ============================================================================= //
+// File          : location.rs                                                   //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Location search and the device HTTP request worker.                           //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Encodes Open-Meteo geocoding requests and validates bounded location results. //
+// Defines forecast, search, and timezone request and response messages. On      //
+// ESP32, runs time synchronization and bounded HTTPS requests in a worker,      //
+// gated by connectivity and synchronized time.                                  //
+// ============================================================================= //
+
 use crate::{i18n::Language, settings::Location};
 use serde::Deserialize;
 

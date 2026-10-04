@@ -1,3 +1,25 @@
+// ============================================================================= //
+// File          : weather_ui.rs                                                 //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Clock, weekly, and hourly weather views for the portrait UI.                  //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Renders localized weather cards, analog and digital clocks, forecast tables,  //
+// presence, attribution, and the settings gear. Uses buffered region            //
+// comparisons to transmit changed pixels and recover after display errors.      //
+// Shares rendering between device and host previews; embedded assets retain     //
+// their own licences.                                                           //
+// ============================================================================= //
+
 //! Three portrait weather views, shared by the board and host previews.
 use crate::{
     i18n::{self, Language},

@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : board.rs                                                      //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// ESP32 board initialization, display, touch, and radar access.                 //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Initializes the shared SPI display and touch controller, backlight, radar,    //
+// and board pins. Loads or performs touch calibration, maps touch events, and   //
+// exposes full and partial UI rendering, brightness control, and radar polling  //
+// to the application.                                                           //
+// ============================================================================= //
+
 use crate::{
     i18n::Language,
     model::App,

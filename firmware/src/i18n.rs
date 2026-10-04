@@ -1,4 +1,24 @@
-//! Device UI translations with stable language indices for saved preferences.
+// ============================================================================= //
+// File          : i18n.rs                                                       //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Language selection and translations for the device interface.                 //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Defines supported languages with stable indices for saved preferences and API //
+// language codes. Translates interface strings and multiline prompts, with      //
+// fallback to the supplied text. Includes a test protecting persisted language  //
+// indices.                                                                      //
+// ============================================================================= //
+
 use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Language {

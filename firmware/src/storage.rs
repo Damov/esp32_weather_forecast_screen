@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : storage.rs                                                    //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Native ESP-IDF Wi-Fi credential persistence.                                  //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Decodes and validates fixed-size native station profiles and loads, saves, or //
+// forgets credentials through the Wi-Fi driver. Keeps normal configuration in   //
+// RAM and switches to flash only for explicit persistence operations. Clears    //
+// temporary secrets and tests profile decoding and storage mode restoration.    //
+// ============================================================================= //
+
 //! Native station credentials stored in unencrypted ESP-IDF NVS.
 #[cfg(any(target_os = "espidf", test))]
 use crate::model::{Credentials, Network, Security};

@@ -1,3 +1,25 @@
+// ============================================================================= //
+// File          : screen.rs                                                     //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Backlight blanking and wake control without stopping the CPU.                 //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Tracks screen activity and applies configured inactivity and nighttime rules. //
+// Handles touch gestures and optional radar presence wakeups, restores          //
+// brightness, and retries failed backlight updates. Display contents,           //
+// networking, and application processing remain active while the backlight is   //
+// off.                                                                          //
+// ============================================================================= //
+
 //! Backlight-only blanking. The CPU, display contents and network stay active.
 use crate::settings::Settings;
 

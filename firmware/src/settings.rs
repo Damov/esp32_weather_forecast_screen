@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : settings.rs                                                   //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Persistent preferences and settings overlay state.                            //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Defines and validates location and device preferences, serializes profiles,   //
+// and imports legacy settings. Tracks settings overlays, save rollback,         //
+// location search results, calibration state, and clock formatting. Handles     //
+// stale requests and timeouts independently of Wi-Fi navigation.                //
+// ============================================================================= //
+
 //! Persisted preferences and settings overlays, independent of Wi-Fi navigation.
 use crate::{i18n::Language, touch::Wizard};
 use chrono::{DateTime, Timelike, Utc};

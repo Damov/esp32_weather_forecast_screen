@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : ui.rs                                                         //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Wi-Fi interface controls and shared application rendering.                    //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Builds hit-testable controls and maps user actions to application commands.   //
+// Renders connection pages, password keyboards, startup and calibration         //
+// prompts, and presence indicators. Delegates settings overlays and weather     //
+// views to their renderers while preserving shared UI geometry.                 //
+// ============================================================================= //
+
 use crate::{
     model::{App, Command, Page},
     theme::{self, Backdrop, BODY, SMALL, TITLE},

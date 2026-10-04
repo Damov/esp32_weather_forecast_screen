@@ -1,6 +1,31 @@
-//! ST7796 initialization matching Freenove's bundled TFT_eSPI 2.5.43 driver.
-//! Upstream copyright and licence: [TFT_eSPI notice](../../assets/licenses/TFT_eSPI.txt).
-//! Retain this notice with source distributions and binary releases containing this code.
+// ============================================================================= //
+// File          : display.rs                                                    //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// ST7796 display initialization for the Freenove board.                         //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Implements the mipidsi display model for the 320 by 480 ST7796 panel. Applies //
+// orientation and RGB565 settings, reset and wake  delays, power and gamma com- //
+// mands, and display activation. The initialization  is adapted from  TFT_eSPI; //
+// its upstream licence notice remains applicable.                               //
+//                                                                               //
+// Note:                                                                         //
+// -----                                                                         //
+// ST7796 initialization matching Freenove's bundled TFT_eSPI 2.5.43 driver. Up- //
+// stream copyright and licence: ../../assets/licenses/TFT_eSPI.txt              //
+// (TFT_eSPI notice). Retain this notice with source  distributions and  binary  //
+// releases containing this code.                                                //
+// ============================================================================= //
+
 use embedded_graphics::pixelcolor::Rgb565;
 use embedded_hal::delay::DelayNs;
 use mipidsi::{

@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : touch.rs                                                      //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Resistive touch filtering, gestures, and calibration.                         //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Rejects noisy or invalid samples, debounces presses, and reports touch        //
+// phases. Fits and validates coordinate calibration, serializes calibration     //
+// data, and guides a timed calibration wizard with center verification. Commits //
+// new mappings only after successful persistence.                               //
+// ============================================================================= //
+
 //! Hardware-independent resistive touch filtering, mapping, and calibration.
 pub const TARGETS: [(i32, i32); 4] = [(24, 24), (295, 24), (295, 455), (24, 455)];
 pub const CENTER: (i32, i32) = (160, 240);

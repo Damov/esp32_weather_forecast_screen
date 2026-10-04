@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : preview.rs                                                    //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Host rendering and visual checks for the firmware interface.                  //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Renders synthetic Wi-Fi, settings, calibration, presence, and weather         //
+// scenarios with the real UI on a host RGB565 canvas. Writes PPM preview images //
+// and tests partial redraws, clock transitions, and display error recovery      //
+// without connected hardware.                                                   //
+// ============================================================================= //
+
 //! Render the actual firmware UI on the host, without a connected board.
 use embedded_graphics::{
     pixelcolor::{Rgb565, Rgb888},

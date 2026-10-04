@@ -1,4 +1,28 @@
-//! MIT-licensed Meteocons bitmap derivatives; see assets/weather/NOTICE.txt.
+// ============================================================================= //
+// File          : weather_icons.rs                                              //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Embedded Meteocons weather bitmap rendering.                                  //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Selects embedded weather symbols at small and large sizes, decodes RGB565     //
+// colour and alpha coverage, and draws them against solid or gradient           //
+// backdrops. The bitmap derivatives retain their Meteocons MIT licence and      //
+// attribution notice.                                                           //
+//                                                                               //
+// Note:                                                                         //
+// -----                                                                         //
+// MIT-licensed Meteocons bitmap derivatives; see assets/weather/NOTICE.txt.     //
+// ============================================================================= //
+
 use crate::theme;
 use embedded_graphics::{pixelcolor::Rgb565, prelude::*, primitives::Rectangle};
 const ICONS_32: [&[u8]; 13] = [

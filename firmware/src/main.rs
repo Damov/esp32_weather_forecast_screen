@@ -1,3 +1,25 @@
+// ============================================================================= //
+// File          : main.rs                                                       //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// ESP32 firmware startup and the main application loop.                         //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Initializes logging, storage, board peripherals, and background Wi-Fi and     //
+// HTTP workers. Coordinates application events, touch input, settings           //
+// persistence, forecast refreshes, synchronized time, radar presence, and       //
+// backlight control. Schedules full or partial UI redraws and handles device    //
+// errors.                                                                       //
+// ============================================================================= //
+
 use esp_idf_svc::{hal::peripherals::Peripherals, nvs::EspDefaultNvsPartition};
 use std::{
     sync::{

@@ -1,3 +1,24 @@
+// ============================================================================= //
+// File          : network.rs                                                    //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// ESP-IDF Wi-Fi backend and connection worker.                                  //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Initializes the Wi-Fi driver and event handling, scans networks, configures   //
+// station credentials, and tracks association and IP readiness. Implements the  //
+// connection service backend and credential storage operations, publishing      //
+// events and online status to the main application.                             //
+// ============================================================================= //
+
 use crate::{
     model::{Command, Credentials, Event, Failure, Network, Security},
     service::{Backend, CredentialStore, Service},

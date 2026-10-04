@@ -1,4 +1,25 @@
-//! Passive HLK-LD2410C reports using HLK serial protocol V1.09, section 2.3.
+// ============================================================================= //
+// File          : radar.rs                                                      //
+// License       : GPL-3.0-only                                                  //
+// Created       : 2026-10-04                                                    //
+// Last modified : 2026-10-04                                                    //
+// Author        : Daniel Kharlamov                                              //
+// Last editor   : Daniel Kharlamov <daniel.kharlamov@googlemail.com>            //
+// ============================================================================= //
+//                                                                               //
+// Summary:                                                                      //
+// --------                                                                      //
+// Passive HLK-LD2410C radar parsing and presence detection.                     //
+//                                                                               //
+// Module:                                                                       //
+// -------                                                                       //
+// Parses basic and engineering UART reports using HLK protocol V1.09, validates //
+// frames, recovers from serial noise, and extracts target distances and  energy //
+// readings. Clears stale readings after one second. On  ESP32, initializes  and //
+// polls the UART receiver  and OUT pin,  combining their  signals into present, //
+// absent, or unavailable presence  status. Includes unit tests for parsing, re- //
+// covery, expiry, and presence handling.                                        //
+// ============================================================================= //
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 /// UART measurements: distances in centimetres and sensor energy on its 0..100 scale.

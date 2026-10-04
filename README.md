@@ -50,6 +50,17 @@ The release ELF is written to `firmware/target/xtensa-esp32-espidf/release/weath
 
 See the [firmware README](firmware/README.md) for implementation details, host tests, asset generation and documentation previews. Installation steps are in the [user guide](USER_GUIDE.md#installing-the-firmware-under-linux).
 
+To inspect or remove build output and temporary files:
+
+```sh
+./clean.sh --dry-run
+./clean.sh
+./clean.sh --all --dry-run
+./clean.sh --all
+```
+
+Default cleanup removes Cargo build output, mutation-test output, Python bytecode caches, Rust backup files, `.pdb` files, and generated or old `sdkconfig` files. Tracked files, secrets, backups, and symlinks are preserved. `--all` also removes local `.embuild` SDK caches and the documented `/tmp/weather-wifi-preview` and `/tmp/weather-assets-venv` directories; the next build may download the SDK and tools again. Custom preview destinations and other files under `/tmp` are retained. The script works from any working directory and requires Bash and Git, without requiring Cargo. Run it when builds and preview generators are stopped.
+
 ## Building on Windows
 
 **TODO:** To be written in near future!

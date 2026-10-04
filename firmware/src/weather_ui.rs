@@ -245,8 +245,7 @@ impl ClockBuffer {
             // skipped.
             return Ok(());
         }
-        // Composes current and previous strips and transmits only changed runs, or complete strips
-        // without a baseline.
+        // Compare final colours without clearing the previous hand first.
         render_region(
             display,
             bounds,
@@ -877,6 +876,7 @@ impl ClockContent {
         theme::background(&mut display)?;
         // Draws the dial ticks and optional hour, minute, and second hands.
         render_analog(&mut display, self.hands)?;
+        // Start the digital band below the enlarged dial, closer to the date.
         // Six fixed 28px digit cells and two 10px colon cells: 188px centered.
         // Center each glyph inside its cell, never the varying-width whole string.
         // Keep horizontal coordinate or current position along the row in this local variable for
@@ -902,7 +902,7 @@ impl ClockContent {
                 &CLOCK,
                 glyph,
                 x + ((cell_width - width) / 2) as i32,
-                214,
+                238,
                 width,
                 false,
             )?;
@@ -911,10 +911,10 @@ impl ClockContent {
             // accumulated state for subsequent steps.
             x += cell_width as i32;
         }
-        // Draw AM/PM only for a 12-hour clock with available local time.
+        // Put AM/PM beside the lowered digits so the date retains its existing position.
         if let Some(period) = &self.period {
-            // Centers a clipped weather label within the portrait page.
-            center(&mut display, &BODY, period, 266)?;
+            // The label fits in the right-hand margin without shifting the fixed digit cells.
+            text(&mut display, &BODY, period, 262, 258, 46, false)?;
         }
         // Centers a clipped weather label within the portrait page.
         center(
@@ -1115,15 +1115,15 @@ impl StripContent for WeatherContent {
 ///
 /// # Returns
 ///
-/// `Point` - Rounded screen point around center (160, 132); zero turns points upward.
+/// `Point` - Rounded screen point around center (160, 143); zero turns points upward.
 fn dial_point(turns: f64, radius: f64) -> Point {
     // Keep clockwise dial angle in radians, calculated from fractional turns in this local variable
     // for the following operations.
     let angle = turns * std::f64::consts::TAU;
-    // Allocates two reusable strip buffers for differential rendering.
+    // Convert clockwise polar coordinates to screen pixels around the enlarged dial center.
     Point::new(
         160 + (angle.sin() * radius).round() as i32,
-        132 - (angle.cos() * radius).round() as i32,
+        143 - (angle.cos() * radius).round() as i32,
     )
 }
 /// Computes interpolated clockwise hour, minute, and second hand rotations.
@@ -1172,7 +1172,8 @@ fn render_analog<D: DrawTarget<Color = Rgb565>>(
     hands: Option<(u32, u32, u32)>,
 ) -> Result<(), D::Error> {
     // Send the prepared shape or text pixels to the current drawing destination.
-    Circle::new(Point::new(86, 58), 149)
+    // Scale the 149-pixel dial by 20%; its top stays inside the existing clock region.
+    Circle::new(Point::new(71, 54), 179)
         .into_styled(PrimitiveStyle::with_stroke(theme::TEXT, 1))
         .draw(display)?;
     // Visit each entry in 0..60; the loop binding provides its value or index for this iteration.
@@ -1183,8 +1184,8 @@ fn render_analog<D: DrawTarget<Color = Rgb565>>(
         // Send the prepared shape or text pixels to the current drawing destination.
         Line::new(
             // Major five-minute ticks use a longer, thicker mark than the intervening minute ticks.
-            dial_point(tick as f64 / 60.0, if hour { 62.0 } else { 68.0 }),
-            dial_point(tick as f64 / 60.0, 71.0),
+            dial_point(tick as f64 / 60.0, if hour { 74.4 } else { 81.6 }),
+            dial_point(tick as f64 / 60.0, 85.2),
         )
         .into_styled(PrimitiveStyle::with_stroke(
             theme::TEXT,
@@ -1199,20 +1200,19 @@ fn render_analog<D: DrawTarget<Color = Rgb565>>(
         // Keep fractional clockwise rotations for hour, minute, and second hands in this local
         // variable for the following operations.
         let turns = hand_turns(hour, minute, second);
-        // Run each listed scenario or target in the declared order; the loop variables select the
-        // data for that case.
+        // Scale hand lengths with the dial; seconds retain orange and the minute hand’s 3-pixel stroke.
         for (index, radius, width, color) in [
-            (0, 40.0, 5, theme::TEXT),
-            (1, 57.0, 3, theme::TEXT),
-            (2, 64.0, 1, theme::rgb(0xffa64d)),
+            (0, 48.0, 5, theme::TEXT),
+            (1, 68.4, 3, theme::TEXT),
+            (2, 76.8, 3, theme::rgb(0xffa64d)),
         ] {
             // Send the prepared shape or text pixels to the current drawing destination.
-            Line::new(Point::new(160, 132), dial_point(turns[index], radius))
+            Line::new(Point::new(160, 143), dial_point(turns[index], radius))
                 .into_styled(PrimitiveStyle::with_stroke(color, width))
                 .draw(display)?;
         }
         // Send the prepared shape or text pixels to the current drawing destination.
-        Circle::new(Point::new(157, 129), 7)
+        Circle::new(Point::new(157, 140), 7)
             .into_styled(PrimitiveStyle::with_fill(theme::TEXT))
             .draw(display)?;
     }
@@ -1804,6 +1804,49 @@ fn draw_settings_gear<D: DrawTarget<Color = Rgb565>>(display: &mut D) -> Result<
 #[cfg(test)]
 mod analog_tests {
     use super::*;
+
+    /// Checks that the rendered seconds hand is orange and as thick as the minute hand.
+    ///
+    /// # Arguments
+    ///
+    /// None.
+    ///
+    /// # Returns
+    ///
+    /// `()` - Completes when both hand cross-sections have three pixels.
+    ///
+    /// # Panics
+    ///
+    /// Panics if either rendered hand has the wrong colour or width.
+    #[test]
+    fn seconds_hand_is_orange_and_matches_minute_stroke() {
+        let area = clock_bounds();
+        let mut pixels = vec![Rgb565::BLACK; (area.size.width * area.size.height) as usize];
+        // At 09:00:30, the minute hand points up and the seconds hand points down.
+        render_analog(
+            &mut ClockStrip {
+                area,
+                pixels: &mut pixels,
+            },
+            Some((9, 0, 30)),
+        )
+        .unwrap();
+        let pixel = |x: i32, y: i32| {
+            pixels[((y - area.top_left.y) as u32 * area.size.width
+                + (x - area.top_left.x) as u32) as usize]
+        };
+        // Sample away from the hub and rim so only each hand contributes pixels.
+        let minute_width = (155..=165)
+            .filter(|&x| pixel(x, 100) == theme::TEXT)
+            .count();
+        let seconds_width = (155..=165)
+            .filter(|&x| pixel(x, 180) == theme::rgb(0xffa64d))
+            .count();
+        assert_eq!(minute_width, 3);
+        assert_eq!(seconds_width, minute_width);
+        assert_eq!(pixel(160, 180), theme::rgb(0xffa64d));
+    }
+
     /// Verifies weekly probability rounding, missing-value placeholders, and temperature-unit
     /// independence.
     ///
@@ -2035,18 +2078,14 @@ mod analog_tests {
     /// Assertions or fixture assumptions panic if the tested behavior is violated.
     #[test]
     fn clockwise_cardinal_positions_and_interpolated_hands() {
-        // Verify that computes a clockwise clock-dial position from an angular turn and radius
-        // exactly matches allocates two reusable strip buffers for differential rendering.
-        assert_eq!(dial_point(0.0, 64.0), Point::new(160, 68));
-        // Verify that computes a clockwise clock-dial position from an angular turn and radius
-        // exactly matches allocates two reusable strip buffers for differential rendering.
-        assert_eq!(dial_point(0.25, 64.0), Point::new(224, 132));
-        // Verify that computes a clockwise clock-dial position from an angular turn and radius
-        // exactly matches allocates two reusable strip buffers for differential rendering.
-        assert_eq!(dial_point(0.5, 64.0), Point::new(160, 196));
-        // Verify that computes a clockwise clock-dial position from an angular turn and radius
-        // exactly matches allocates two reusable strip buffers for differential rendering.
-        assert_eq!(dial_point(0.75, 64.0), Point::new(96, 132));
+        // The enlarged seconds-hand radius rounds to 77 pixels at each cardinal direction.
+        assert_eq!(dial_point(0.0, 76.8), Point::new(160, 66));
+        // The enlarged seconds-hand radius rounds to 77 pixels at each cardinal direction.
+        assert_eq!(dial_point(0.25, 76.8), Point::new(237, 143));
+        // The enlarged seconds-hand radius rounds to 77 pixels at each cardinal direction.
+        assert_eq!(dial_point(0.5, 76.8), Point::new(160, 220));
+        // The enlarged seconds-hand radius rounds to 77 pixels at each cardinal direction.
+        assert_eq!(dial_point(0.75, 76.8), Point::new(83, 143));
         // Verify that computes interpolated clockwise hour, minute, and second hand rotations
         // exactly matches computes interpolated clockwise hour, minute, and second hand rotations.
         assert_eq!(hand_turns(0, 0, 0), hand_turns(12, 0, 0));

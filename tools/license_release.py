@@ -60,8 +60,10 @@ def rust_version():
 
 
 def fetch(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers={
-            'User-Agent': 'weather-firmware-license-collector'}), timeout=45) as response:
+    headers = {'User-Agent': 'weather-firmware-license-collector'}
+    if url.startswith('https://api.github.com/') and os.environ.get('GITHUB_TOKEN'):
+        headers['Authorization'] = 'Bearer ' + os.environ['GITHUB_TOKEN']
+    with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=45) as response:
         return response.read()
 
 
@@ -258,7 +260,23 @@ def build_context(args):
     return build, sdk, toolchain, evidence
 
 
+def application_inputs():
+    paths = set(INPUTS) | {'firmware/build.rs', 'firmware/rust-toolchain.toml',
+                           'firmware/.cargo/config.toml'}
+    for directory in ('firmware/src', 'firmware/assets'):
+        paths.update(str(p.relative_to(ROOT)) for p in (ROOT / directory).rglob('*') if p.is_file())
+    return {p: digest((ROOT / p).read_bytes()) for p in sorted(paths)}
+
+
+def application_evidence(images):
+    elf = images.resolve() / 'weather-forecast-firmware'
+    require(elf.is_file() and elf.stat().st_size, f'Missing release ELF: {elf}')
+    return {'elf_sha256': digest(elf.read_bytes()), 'inputs': application_inputs()}
+
+
 def update(args):
+    application = application_evidence(args.firmware_dir)
+    COLLECTION.parent.mkdir(parents=True, exist_ok=True)
     require(lock_packages() == {(r['package'], r['version']) for r in rows()},
             'Lockfile differs from reviewed Rust inventory; review it before update')
     selected = target_packages()
@@ -269,7 +287,7 @@ def update(args):
     with tempfile.TemporaryDirectory(prefix='.license-update-', dir=COLLECTION.parent) as temp:
         out = Path(temp) / 'collection'
         out.mkdir()
-        manifest = {'format': 2, 'scope': 'ESP32 target dependencies, code-generation notices and linked SDK/runtime coverage; not a legal certification',
+        manifest = {'format': 3, 'application': application, 'scope': 'ESP32 target dependencies, code-generation notices and linked SDK/runtime coverage; not a legal certification',
                     'inputs': {p: digest((ROOT / p).read_bytes()) for p in INPUTS},
                     'build': evidence, 'components': [], 'files': {}, 'build_inputs': {}, 'notice_parts': {}}
         parts = {}
@@ -403,6 +421,7 @@ def update(args):
         path = out / 'THIRD-PARTY-NOTICES.txt'
         path.write_bytes(document)
         manifest['files']['THIRD-PARTY-NOTICES.txt'] = {'sha256': digest(document), 'origin': 'Consolidated original notices; duplicate bodies share all evidence labels'}
+        require(application_evidence(args.firmware_dir) == application, 'Application changed during evidence collection')
         (out / 'manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
         previous = Path(temp) / 'previous'
         if COLLECTION.exists():
@@ -418,7 +437,9 @@ def update(args):
 
 def check():
     manifest = json.loads((COLLECTION / 'manifest.json').read_text())
-    require(manifest.get('format') == 2, 'Unsupported evidence manifest format')
+    require(manifest.get('format') == 3, 'Unsupported evidence manifest format')
+    require(re.fullmatch(r'[0-9a-f]{64}', manifest.get('application', {}).get('elf_sha256', '')) is not None, 'Missing/invalid application ELF hash')
+    require(manifest['application']['inputs'] == application_inputs(), 'Application inputs changed; rebuild and run update')
     for relative, expected in manifest['inputs'].items():
         path = ROOT / relative
         require(path.is_file() and digest(path.read_bytes()) == expected,
@@ -468,6 +489,7 @@ def package(args):
         path = locations[kind] / relative
         require(path.is_file() and digest(path.read_bytes()) == expected, f'Build evidence changed: {key}')
     images = args.firmware_dir.resolve()
+    require(application_evidence(images) == manifest.get('application'), 'Application ELF or inputs differ from collected evidence; rebuild and run update')
     for name in IMAGES:
         require((images / name).is_file() and (images / name).stat().st_size, f'Missing image: {name}')
     for name, relative in [('bootloader.bin', 'bootloader/bootloader.bin'),
@@ -499,7 +521,7 @@ def package(args):
             shutil.copyfile(images / name, dest / name)
         shutil.copytree(COLLECTION, dest / 'licenses')
         shutil.copyfile(ROOT / 'LICENSE', dest / 'LICENSE')
-        text = f'''ESP32 weather forecast screen {args.version}\n\nProject code: MIT. Included components retain their original licenses.\nRead licenses/THIRD-PARTY-NOTICES.txt and the original texts before redistribution.\nWhen distributing extracted binaries, provide these accompanying materials too.\nCertificate source material: licenses/sources/certificates/.\nThe declaration is copied as a reference; its relative links refer to the\nproject source repository. The complete release license texts are in licenses/.\n\nClassic ESP32 / 4 MiB flash only. Install esptool on your host, connect the\nboard, and replace /dev/ttyUSB0 with its serial port:\n\npython3 -m esptool --chip esp32 --port /dev/ttyUSB0 --baud 460800 write_flash --flash_mode dio --flash_freq 40m --flash_size 4MB 0x1000 bootloader.bin 0x8000 partition-table.bin 0x10000 weather-forecast-firmware.bin\n\nThese offsets preserve the existing settings/filesystem partitions. No flash\nerase, eFuse programming, firmware backup or personal credentials are included.\n\nWeather/location data: Open-Meteo and GeoNames; CC BY 4.0. Free API use is\nnon-commercial: https://open-meteo.com/en/terms\n\nChecksums verify integrity; they are not signatures or legal certification.\n'''
+        text = f'''ESP32 weather forecast screen {args.version}\n\nProject code: MIT. Included components retain their original licenses.\nRead licenses/THIRD-PARTY-NOTICES.txt and the original texts before redistribution.\nWhen distributing extracted binaries, provide these accompanying materials too.\nCertificate source material: licenses/sources/certificates/.\nThe complete release license texts are in licenses/.\n\nClassic ESP32 / 4 MiB flash only. Install esptool on your host, connect the\nboard, and replace /dev/ttyUSB0 with its serial port:\n\npython3 -m esptool --chip esp32 --port /dev/ttyUSB0 --baud 460800 write_flash --flash_mode dio --flash_freq 40m --flash_size 4MB 0x1000 bootloader.bin 0x8000 partition-table.bin 0x10000 weather-forecast-firmware.bin\n\nThese offsets preserve the existing settings/filesystem partitions. No flash\nerase, eFuse programming, firmware backup or personal credentials are included.\n\nWeather/location data: Open-Meteo and GeoNames; CC BY 4.0. Free API use is\nnon-commercial: https://open-meteo.com/en/terms\n\nChecksums verify integrity; they are not signatures or legal certification.\n'''
         (dest / 'README.txt').write_text(text)
         provenance = {'release': args.version, 'project_commit': run('git', '-C', ROOT, 'rev-parse', 'HEAD'),
                       'working_tree_dirty': bool(run('git', '-C', ROOT, 'status', '--porcelain')),
@@ -518,19 +540,22 @@ def package(args):
 
 
 def main():
+    global COLLECTION
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
     for command in ('update', 'check', 'package'):
         sub = commands.add_parser(command)
+        sub.add_argument('--collection-dir', type=Path, default=COLLECTION)
         if command in ('update', 'package'):
             sub.add_argument('--idf-build-dir', type=Path, required=True)
             sub.add_argument('--toolchain-dir', type=Path, required=True)
-        if command == 'package':
             sub.add_argument('--firmware-dir', type=Path, required=True)
+        if command == 'package':
             sub.add_argument('--version', required=True)
             sub.add_argument('--output-dir', type=Path, required=True)
             sub.add_argument('--esptool-python', default=sys.executable)
     args = parser.parse_args()
+    COLLECTION = args.collection_dir.resolve()
     try:
         {'update': update, 'check': lambda _: check(), 'package': package}[args.command](args)
     except (ValueError, OSError, KeyError, subprocess.CalledProcessError) as error:

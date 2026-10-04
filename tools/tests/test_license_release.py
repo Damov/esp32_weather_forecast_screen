@@ -24,7 +24,7 @@ class EvidenceTests(unittest.TestCase):
         self.collection = self.root / 'docs/licensing'
         shutil.copytree(release.COLLECTION, self.collection)
         self.manifest = json.loads((self.collection / 'manifest.json').read_text())
-        for relative in self.manifest['inputs']:
+        for relative in set(self.manifest['inputs']) | set(self.manifest['application']['inputs']):
             destination = self.root / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(release.ROOT / relative, destination)
@@ -48,10 +48,21 @@ class EvidenceTests(unittest.TestCase):
             self.check()
         self.assertEqual(before, (self.collection / 'manifest.json').read_bytes())
 
+    def test_missing_elf_hash_fails_offline(self):
+        self.manifest['application'].pop('elf_sha256')
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'Missing/invalid application ELF hash'):
+            self.check()
+
+    def test_changed_application_input_fails(self):
+        (self.root / 'firmware/src/main.rs').write_text('changed source')
+        with self.assertRaisesRegex(ValueError, 'Application inputs changed'):
+            self.check()
+
     def test_changed_dependency_fails(self):
         path = self.root / 'firmware/Cargo.lock'
         path.write_text(path.read_text().replace('version = "0.1.0"', 'version = "0.1.1"', 1))
-        with self.assertRaisesRegex(ValueError, 'Changed/missing input'):
+        with self.assertRaisesRegex(ValueError, 'Application inputs changed'):
             self.check()
 
     def test_missing_original_notice_fails(self):
@@ -100,7 +111,7 @@ class EvidenceTests(unittest.TestCase):
     def test_changed_partition_layout_fails(self):
         path = self.root / 'firmware/partitions.csv'
         path.write_text(path.read_text().replace('0x10000', '0x20000'))
-        with self.assertRaisesRegex(ValueError, 'Changed/missing input'):
+        with self.assertRaisesRegex(ValueError, 'Application inputs changed'):
             self.check()
 
     def test_symlinked_notice_fails(self):
@@ -136,11 +147,12 @@ class PackagingFailureTests(unittest.TestCase):
         (self.build / 'partition_table/partition-table.bin').write_bytes(b'partitions')
         (self.images / 'weather-forecast-firmware').write_bytes(b'release ELF')
         (self.root / 'firmware/partitions.csv').write_text('app0,app,ota_0,0x10000,0x300000,\n')
+        self.manifest['application'] = {'elf_sha256': release.digest(b'release ELF'), 'inputs': {}}
         self.args = SimpleNamespace(idf_build_dir=self.build, toolchain_dir=self.root,
             firmware_dir=self.images, version='1.0.0', output_dir=self.root / 'output',
             esptool_python='python3')
         for target, value in [('ROOT', self.root), ('check', lambda: self.manifest),
-                              ('rust_root', lambda: self.root),
+                              ('rust_root', lambda: self.root), ('application_inputs', lambda: {}),
                               ('build_context', lambda _: (self.build, self.root, self.root, {'runtime': 'reviewed'}))]:
             patcher = mock.patch.object(release, target, value)
             patcher.start()
@@ -150,6 +162,32 @@ class PackagingFailureTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, reason):
             release.package(self.args)
         self.assertFalse(self.args.output_dir.exists(), 'Created output despite failed validation')
+
+    def test_different_elf_with_matching_binary_is_rejected_before_regeneration(self):
+        (self.images / 'weather-forecast-firmware').write_bytes(b'old ELF')
+        (self.images / 'weather-forecast-firmware.bin').write_bytes(b'old matching binary')
+        with mock.patch.object(release.subprocess, 'run', side_effect=AssertionError('regeneration called')):
+            self.assert_rejected('Application ELF or inputs differ')
+
+    def test_missing_application_hash_is_rejected(self):
+        self.manifest['application'].pop('elf_sha256')
+        self.assert_rejected('Application ELF or inputs differ')
+
+    def test_changed_application_source_is_rejected(self):
+        with mock.patch.object(release, 'application_inputs', return_value={'firmware/src/main.rs': 'changed'}):
+            self.assert_rejected('Application ELF or inputs differ')
+
+    def test_recorded_elf_packages_successfully(self):
+        collection = self.root / 'licenses'
+        collection.mkdir()
+        (collection / 'notice.txt').write_text('original notices')
+        (self.root / 'LICENSE').write_text('MIT')
+        (self.build / 'libespidf.map').write_bytes(b'libnet80211.a')
+        def regenerate(command, **kwargs):
+            Path(command[command.index('--output') + 1]).write_bytes(b'actual application')
+        with mock.patch.object(release, 'COLLECTION', collection), mock.patch.object(release, 'run', return_value='commit'), mock.patch.object(release.subprocess, 'run', side_effect=regenerate):
+            release.package(self.args)
+        self.assertEqual(len(list(self.args.output_dir.iterdir())), 2)
 
     def test_changed_runtime_is_rejected(self):
         self.manifest['build']['runtime'] = 'different runtime'

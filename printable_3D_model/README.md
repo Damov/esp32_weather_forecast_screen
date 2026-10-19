@@ -17,6 +17,7 @@ Print one of each of the four parts below. Use the 3MF project for the prepared 
 | [assembly.3mf](assembly.3mf) | Print project containing all four parts, their print layout, saved slicer settings, and color modifiers for the cloud-and-sun emblem on the front lid. |
 | [step/Front_Lid.STEP](step/Front_Lid.STEP) | Front enclosure with the display opening, the upper radar area, and insert locations for the enclosure and radar mount. |
 | [step/Back_Lid.STEP](step/Back_Lid.STEP) | Rear enclosure with ventilation slots, USB cable clearance, enclosure fastening holes, and insert locations for the stand. |
+| [step/Back_Lid_USB-C_right_angle.STEP](step/Back_Lid_USB-C_right_angle.STEP) | Optional variant of the back lid for a 90° right-angle USB-C adapter such as [B0FD9LBCKF](https://www.amazon.com.au/dp/B0FD9LBCKF). The USB opening is enlarged to 14 × 8.5 mm and its centre is 2 mm closer to the lid centre than in `Back_Lid.STEP`. Use it in place of `Back_Lid.STEP`. |
 | [step/Mounting_Radar.STEP](step/Mounting_Radar.STEP) | Retaining mount that secures the radar behind the upper front panel. |
 | [step/Stand.STEP](step/Stand.STEP) | Desktop stand that attaches to the back lid with four screws. |
 
